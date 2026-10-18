@@ -1,7 +1,6 @@
 [book]
 authors = ["LukeScarletTrial"]
 language = "en"
-multilingual = false
 src = "src"
 title = "The Blueprint Language Documentation"
 
