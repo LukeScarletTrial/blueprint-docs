@@ -77,10 +77,32 @@ func draw_shape(x: int, y: int, size: int): void [
 ]
 ```
  
+## Compiled Distribution Modules (`.blm`)
+
+<p align="center">
+  <img src="../images/blm-logo.png" alt="Blueprint Compiled Module Logo" width="160" />
+</p>
+
+For distribution, community modules can be compiled into a single portable `.blm` (Blueprint Module) file using:
+
+```bash
+printable compile-module <folder_or_name>
+```
+
+### Features of `.blm`:
+- **Single File Distribution**: Combines `package.bls`, `package.bl`, and all `functions/*.bl` component files into a single, clean `.blm` bundle.
+- **Instant Imports**: You can drop `my_lib.blm` directly into your project's `./modules/` folder:
+  ```blueprint
+  @blueprint import modules/my_lib
+  ```
+- The compiler automatically resolves both directory-based packages (`modules/my_lib/`) and compiled modules (`modules/my_lib.blm`).
+
 ## How the Compiler Resolves Packages
- 
+
 When compiling or running a project with `@blueprint import modules/<libname>`:
- 1. The compiler locates `./modules/<libname>/`.
- 2. Parses `package.bls` and `package.bl`, registering exposed structs and top-level functions.
- 3. Automatically traverses and compiles each function file inside `functions/*.bl`.
- 4. Combines the items seamlessly into your program's compilation unit with full type-safety and ARC memory management.
+ 1. The compiler checks for `./modules/<libname>.blm` or `./modules/<libname>/<libname>.blm`.
+ 2. If no `.blm` is present, it looks for the `./modules/<libname>/` package folder.
+ 3. Parses `package.bls` and `package.bl`, registering exposed structs and top-level functions.
+ 4. Automatically traverses and compiles each function file inside `functions/*.bl`.
+ 5. Combines the items seamlessly into your program's compilation unit with full type-safety and ARC memory management.
+
