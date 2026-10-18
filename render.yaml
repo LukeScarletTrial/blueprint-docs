@@ -2,5 +2,5 @@ services:
   - type: web
     name: blueprint-docs
     env: static
-    buildCommand: "cargo install mdbook --no-default-features && mdbook init --theme && mdbook build"
-    staticPublishPath: "./book"
+    buildCommand: "cargo install mdbook --no-default-features && mdbook build"
+    staticPublishPath: "./src/book"
