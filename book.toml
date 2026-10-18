@@ -1,0 +1,10 @@
+[book]
+authors = ["LukeScarletTrial"]
+language = "en"
+multilingual = false
+src = "src"
+title = "The Blueprint Language Documentation"
+
+[output.html]
+git-repository-url = "https://github.com/LukeScarletTrial/blueprint"
+preferred-dark-theme = "navy"
