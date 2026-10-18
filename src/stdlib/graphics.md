@@ -1,6 +1,16 @@
-# 2D Graphics & Windowing Engine
+# 2D Graphics & Windowing Engine (`AppToolkit`)
 
-Blueprint provides zero-dependency, hardware-accelerated 2D windowing and double-buffered rendering directly in the standard library.
+Blueprint provides native, zero-dependency, hardware-accelerated 2D windowing and double-buffered rendering.
+
+To access the windowing and 2D graphics capabilities, import the built-in **`AppToolkit`**:
+
+```blueprint
+@blueprint import Blueprint
+@blueprint import AppToolkit
+```
+
+> [!NOTE]
+> Window and graphics routines (`window_open`, `draw_rect`, etc.) are modularized inside `AppToolkit`. Any Blueprint GUI application will automatically keep the window open and responsive with an internal event polling loop until the window is closed by the user (or via `window_close()`).
 
 ## Window Lifecycle
 
@@ -17,7 +27,7 @@ Returns `true` if the user clicked the close button or pressed Alt+F4.
 Dispatches operating system events (mouse, keyboard, window moves).
 
 ### `window_present()`
-Flips the off-screen double buffer to the screen and syncs frame timing.
+Flips the off-screen double buffer to the screen and syncs frame timing (~60 FPS).
 
 ## Drawing Primitives
 
@@ -39,12 +49,13 @@ Renders text onto the canvas with the specified font size and RGB color.
 ## Input Handling
 
 ### `is_key_down(key_code: int): bool`
-Queries whether a specific key is pressed down.
+Queries whether a specific key is pressed down (using virtual key codes).
 
-## Complete Game Loop Example
+## Complete Example
 
 ```blueprint
 @blueprint import Blueprint
+@blueprint import AppToolkit
 Blueprint.Setup("2D Game Demo", true)
 
 func Main(): [
@@ -64,7 +75,8 @@ func Main(): [
 
         // Present to screen
         window_present()
-        window_close()
     ]
 ]
 ```
+The window remains open and interactive until you click close!
+

@@ -25,6 +25,7 @@
 # Printable Package Manager & CLI
 - [Project Configuration (`config.bls`)](cli/config.md)
 - [CLI Commands (`init`, `build`, `run`, `install`)](cli/commands.md)
+- [Community Modules & Packages](cli/modules.md)
 
 # Tooling & Editor Support
 - [VS Code Extension & Autocomplete](tooling/vscode.md)
