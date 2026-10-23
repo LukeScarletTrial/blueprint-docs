@@ -1,5 +1,5 @@
 # Blueprint Documentation Repository
 
-this repo uses mdBook to create the documentation (makes it easier to create pages).
+This repository uses [mdBook](https://rust-lang.github.io/mdBook/) to build and organize the Blueprint documentation, making it easier to create, manage, and maintain documentation pages.
 
-[`click here`]("https://lukescarlettrial.github.io/blueprint-docs/") to enter the website.
+[Click here to visit the website](https://lukescarlettrial.github.io/blueprint-docs/)
