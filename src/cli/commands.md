@@ -10,8 +10,15 @@ The `printable` binary provides all CLI tooling for Blueprint.
 | `printable module-init` | `printable module-init <name>` | Initializes a community module component structure |
 | `printable compile-module` | `printable compile-module [dir]` | Compiles a module folder into a single portable `.blm` |
 | `printable run` | `printable run [file.bl]` | Executes source code instantly via the developer runner |
-| `printable build` | `printable build [file.bl]` | Compiles source directly into a standalone native `.exe` |
-| `printable install` | `printable install <package>` | Downloads and installs a module into `./modules/` |
+| `printable build` | `printable build [file.bl]` | Compiles source directly into a standalone native binary |
+| `printable test` | `printable test [target]` | Discovers and executes project test suites |
+| `printable clean` | `printable clean` | Cleans `bin/`, temporary build files, and artifacts |
+| `printable doctor` | `printable doctor` | Checks compiler (GCC/Clang), Git, and environment health |
+| `printable add` | `printable add <dep> [ver]` | Adds a dependency to `config.bls` and updates `bl.lock` |
+| `printable remove` | `printable remove <dep>` | Removes a dependency from `config.bls` and `modules/` |
+| `printable update` | `printable update` | Updates all installed packages in `modules/` |
+| `printable module-check`| `printable module-check [dir]` | Validates `package.bls`, `package.bl`, and `functions/` |
+| `printable install` | `printable install [package]` | Downloads and installs dependencies into `./modules/` |
 
 ## `printable init`
 

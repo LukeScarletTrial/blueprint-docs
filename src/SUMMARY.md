@@ -15,6 +15,7 @@
 - [Control Flow (`if`/`else`)](reference/control-flow.md)
 - [Structures (`defstruct`)](reference/structs.md)
 - [Automatic Reference Counting (ARC)](reference/arc-memory.md)
+- [C Foreign Function Interface (FFI)](reference/ffi.md)
 
 # Standard Library
 - [Input / Output (`output`, `input`)](stdlib/io.md)
