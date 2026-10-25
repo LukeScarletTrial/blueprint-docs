@@ -1,108 +1,91 @@
-# Community Modules & Component Architecture
- 
-Blueprint introduces a modular, component-based package architecture modeled after composable component patterns.
- 
-## Importing Community Modules
- 
-To import third-party or community libraries, use the path-based `@blueprint import modules/<libname>` annotation:
- 
-```blueprint
-@blueprint import Blueprint
-@blueprint import modules/mathlib
-@blueprint import modules/shapes
-```
- 
-## Package Layout
- 
-Every Blueprint library package lives under `modules/<libname>/` and follows this standard modular layout:
- 
+# Blueprint Modules (`.blm`) & Binary Packages
+
+Blueprint supports distributing reusable packages either as component directories or as single portable precompiled binary modules using the **`.blm`** format (**B**lueprint **L**ibrary **M**odule).
+
+---
+
+## What is a `.blm` File?
+
+A `.blm` file is a compiled, self-contained single-file module that acts like a pre-packaged library binary for Blueprint. It bundles:
+1. Package metadata and version info from `package.bls`
+2. Declarations and types from `package.bl`
+3. All component function implementations from `functions/*.bl`
+
+Instead of distributing a complex directory tree with dozens of loose files, you compile your package into `<modulename>.blm` and distribute it as a single file.
+
+---
+
+## Module Directory Structure vs `.blm`
+
+When authoring a module locally:
+
 ```text
-modules/
-└── shapes/
-    ├── package.bls          # Package manifest (JSON metadata)
-    ├── package.bl           # Main entry package file (exports & structs)
-    └── functions/           # Individual component function files
-        ├── calc_area.bl     # Component file for calc_area()
-        └── draw_shape.bl    # Component file for draw_shape()
+my_library/
+├── package.bls        # Manifest (name, version, exported functions)
+├── package.bl         # Struct definitions and module exports
+└── functions/         # Individual function files
+    ├── add.bl
+    └── multiply.bl
 ```
- 
-### 1. The Manifest (`package.bls`)
- 
-The `package.bls` file contains package metadata and a declaration of exported functions:
- 
-```json
-{
-  "name": "shapes",
-  "version": "1.0.0",
-  "author": "Community Dev",
-  "functions": [
-    "calc_area",
-    "draw_shape"
-  ]
-}
-```
- 
-### 2. The Main Package Entry (`package.bl`)
- 
-`package.bl` acts as the root entry point (similar to `index.js` in React/Node). It defines shared structures, initialization, or mappings:
- 
-```blueprint
-defstruct ShapeInfo [
-    sides: int,
-    color: string
-]
 
-func DescribeShape(s: ShapeInfo): str [
-    return "Shape with " + s.sides + " sides (" + s.color + ")"
-]
-```
- 
-### 3. Native Function Files (`functions/<function_name>.bl`)
- 
-Each function exported by the library can reside in its own native `.bl` file inside the `functions/` folder. For example, `functions/calc_area.bl`:
- 
-```blueprint
-func calc_area(width: int, height: int): int [
-    return width * height
-]
-```
- 
-And `functions/draw_shape.bl`:
- 
-```blueprint
-@blueprint import AppToolkit
-
-func draw_shape(x: int, y: int, size: int): void [
-    draw_rect(x, y, size, size, 50, 150, 250)
-]
-```
- 
-## Compiled Distribution Modules (`.blm`)
-
-<p align="center">
-  <img src="../images/blm-logo.png" alt="Blueprint Compiled Module Logo" width="160" />
-</p>
-
-For distribution, community modules can be compiled into a single portable `.blm` (Blueprint Module) file using:
+Compiling it with Printable:
 
 ```bash
-printable compile-module <folder_or_name>
+printable compile-module my_library
 ```
 
-### Features of `.blm`:
-- **Single File Distribution**: Combines `package.bls`, `package.bl`, and all `functions/*.bl` component files into a single, clean `.blm` bundle.
-- **Instant Imports**: You can drop `my_lib.blm` directly into your project's `./modules/` folder:
-  ```blueprint
-  @blueprint import modules/my_lib
-  ```
-- The compiler automatically resolves both directory-based packages (`modules/my_lib/`) and compiled modules (`modules/my_lib.blm`).
+Produces:
 
-## How the Compiler Resolves Packages
+```text
+my_library/my_library.blm
+```
 
-When compiling or running a project with `@blueprint import modules/<libname>`:
- 1. The compiler checks for `./modules/<libname>.blm` or `./modules/<libname>/<libname>.blm`.
- 2. If no `.blm` is present, it looks for the `./modules/<libname>/` package folder.
- 3. Parses `package.bls` and `package.bl`, registering exposed structs and top-level functions.
- 4. Automatically traverses and compiles each function file inside `functions/*.bl`.
- 5. Combines the items seamlessly into your program's compilation unit with full type-safety and ARC memory management.
+---
 
+## Importing `.blm` in Your Applications
+
+Once compiled, place the `.blm` file directly into your application's `modules/` folder or project root:
+
+```text
+my_app/
+├── config.bls
+├── main.bl
+└── modules/
+    └── my_library.blm
+```
+
+Import and call it directly in your Blueprint code:
+
+```blueprint
+@blueprint import Blueprint
+@blueprint import modules/my_library
+
+Blueprint.Setup("MyApp", true)
+
+func Main(): [
+    def sum = my_library.add(10, 20)
+    output("Sum: " + sum)
+]
+```
+
+---
+
+## Compiling Modules with Printable
+
+### From Inside a Module Folder:
+```bash
+cd my_library
+printable compile-module .
+# Automatically detects package name from package.bls and produces my_library.blm
+```
+
+### From Parent Directory:
+```bash
+printable compile-module ./my_library
+# Produces my_library/my_library.blm
+```
+
+### Specifying a Custom Output Path:
+```bash
+printable compile-module ./my_library ../another_project/modules/my_library.blm
+```
