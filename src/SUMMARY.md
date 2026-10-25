@@ -19,15 +19,20 @@
 
 # Standard Library
 - [Input / Output (`output`, `input`)](stdlib/io.md)
-- [String Manipulation (`str_len`, concatenation)](stdlib/strings.md)
+- [File System Operations (`file_*`, `path_*`)](stdlib/filesystem.md)
+- [System, Environment & Time (`env_*`, `time_*`)](stdlib/system.md)
+- [String Manipulation (`str_*`)](stdlib/strings.md)
 - [Math Library (`math_*`)](stdlib/math.md)
 - [2D Graphics & Windowing Engine](stdlib/graphics.md)
 
 # Printable Package Manager & CLI
 - [Project Configuration (`config.bls`)](cli/config.md)
-- [CLI Commands (`init`, `build`, `run`, `install`)](cli/commands.md)
+- [CLI Commands Overview](cli/commands.md)
+- [Dependency Management & Lockfile (`bl.lock`)](cli/lockfile.md)
+- [Automated Testing (`printable test`)](cli/testing.md)
 - [Community Modules & Packages](cli/modules.md)
 
 # Tooling & Editor Support
 - [VS Code Extension & Autocomplete](tooling/vscode.md)
+- [Language Server Protocol (`blueprint-lsp`)](tooling/lsp.md)
 - [Native Compiler Architecture](tooling/compiler-architecture.md)
